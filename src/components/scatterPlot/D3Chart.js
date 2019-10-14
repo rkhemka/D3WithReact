@@ -11,15 +11,17 @@ class D3Chart {
 
 		vis.g = d3.select(element)
 			.append("svg")
-			.attr("width", WIDTH + MARGIN.LEFT + MARGIN.RIGHT)
-			.attr("height", HEIGHT + MARGIN.TOP + MARGIN.BOTTOM)
+				.attr("width", WIDTH + MARGIN.LEFT + MARGIN.RIGHT)
+				.attr("height", HEIGHT + MARGIN.TOP + MARGIN.BOTTOM)
 			.append("g")
-			.attr("transform", `translate(${MARGIN.LEFT}, ${MARGIN.TOP})`)
+				.attr("transform", `translate(${MARGIN.LEFT}, ${MARGIN.TOP})`)
+
 		vis.x = d3.scaleLinear()
-			.range([0, WIDTH])
+			.range([0 , WIDTH])
 
 		vis.y = d3.scaleLinear()
-			.range([HEIGHT, 0])
+			.range([HEIGHT , 0])
+
 		vis.xAxisGroup = vis.g.append("g")
 			.attr("transform", `translate(0, ${HEIGHT})`)
 		vis.yAxisGroup = vis.g.append("g")
@@ -41,18 +43,20 @@ class D3Chart {
 
 		vis.update(data)
 	}
+
 	update(data) {
 		let vis = this
 		vis.data = data
 
-		vis.x.domain([0, d3.max(vis.data, d => Number(d.age))])
-		vis.y.domain([0, d3.max(vis.data, d => Number(d.height))])
+		vis.x.domain([0 , d3.max(vis.data, d => Number(d.age))])
+		vis.y.domain([0 , d3.max(vis.data, d => Number(d.height))])
 
 		const xAxisCall = d3.axisBottom(vis.x)
 		const yAxisCall = d3.axisLeft(vis.y)
 
 		vis.xAxisGroup.transition(1000).call(xAxisCall)
 		vis.yAxisGroup.transition(1000).call(yAxisCall)
+
 		// JOIN
 		const circles = vis.g.selectAll("circle")
 			.data(vis.data, d => d.name)
@@ -60,9 +64,8 @@ class D3Chart {
 		// EXIT
 		circles.exit()
 			.transition(1000)
-			.attr("cy", vis.y(0))
-			.remove()
-		console.log("Check ", vis, vis.y(0))
+				.attr("cy", vis.y(0))
+				.remove()
 
 		// UPDATE
 		circles.transition(1000)
@@ -74,10 +77,10 @@ class D3Chart {
 			.attr("cy", vis.y(0))
 			.attr("cx", d => vis.x(d.age))
 			.attr("r", 5)
-			.attr("fill", "orange")
+			.attr("fill", "grey")
 			.on("click", d => vis.updateName(d.name))
 			.transition(1000)
-			.attr("cy", d => vis.y(d.height))
+				.attr("cy", d => vis.y(d.height))
 
 	}
 }
