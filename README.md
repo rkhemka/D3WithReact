@@ -5,7 +5,7 @@ This project is Integrating D3 with React
 ### Run following commands
 
 ### `npm install` or  `yarn`
-### `npm start` or ### `yarn start`
+### `npm start` or `yarn start`
 
 In the project directory, you can run:
 
